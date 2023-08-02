@@ -19,6 +19,13 @@ const TaskCard = (props) => {
       </div>
     );
   }
+  // Additional handling for rendering assigneeName when no dueDate or completedAtDate is provided
+  return (
+    <div className='TaskItem'>
+      <h2 className="text-xl font-bold">{props.title}</h2>
+      <p>Assignee: {props.assigneeName}</p>
+    </div>
+  );
 };
 
 export default TaskCard;

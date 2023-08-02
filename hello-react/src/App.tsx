@@ -10,6 +10,7 @@ function App() {
         <h1>pending</h1>
         <TaskCard title="update blog" dueDate="27/20/2020" assigneeName="sanket jambhulkar" />
         <TaskCard title="Email client!" dueDate="21/20/2020" assigneeName="sanket jambhulkar" />
+        <TaskCard title="Email client!"  assigneeName="sanket jambhulkar" />
       </div>
       <div>
         <h1>done</h1>
