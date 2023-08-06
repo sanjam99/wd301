@@ -1,27 +1,29 @@
-import React, { Component } from 'react';
+import React from 'react'; // Import React without unused imports
 import { TaskItem } from "./types";
 import TaskForm from "./TaskForm";
 import TaskList from "./TaskList";
-//import './index.css'
 
-interface TaskAppProp {}
+interface TaskAppProps {} // Corrected typo from TaskAppProp to TaskAppProps
 interface TaskAppState {
   tasks: TaskItem[];
 }
-class TaskApp extends React.Component<TaskAppProp, TaskAppState> {
-  constructor(props: TaskAppProp) {
+
+class TaskApp extends React.Component<TaskAppProps, TaskAppState> { // Changed extends Component to extends React.Component
+  constructor(props: TaskAppProps) {
     super(props);
     this.state = {
       tasks: [],
     };
   }
-addTask = (task: TaskItem) => {
-  this.setState((state) => {
-    return {
-      tasks: [...state.tasks, task],
-    };
-  });
-};
+
+  addTask = (task: TaskItem) => {
+    this.setState((state) => {
+      return {
+        tasks: [...state.tasks, task],
+      };
+    });
+  };
+
   render() {
     return (
       <div className="container py-10 max-w-4xl mx-auto">
@@ -45,6 +47,5 @@ addTask = (task: TaskItem) => {
     );
   }
 }
-
 
 export default TaskApp;

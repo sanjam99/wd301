@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react'; // Import React without unused imports
 import "./TaskCard.css";
 
-interface TaskProp {
+interface TaskProps { // Corrected typo from TaskProp to TaskProps
   title: string;
 }
-class Task extends React.Component<TaskProp> {
+
+class Task extends React.Component<TaskProps> { // Changed extends Component to extends React.Component
   render() {
     return (
       <div className="TaskItem shadow-md border border-slate-100">
