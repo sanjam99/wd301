@@ -61,6 +61,8 @@ class TaskForm extends React.Component<TaskFormProps, TaskFormState> {
           type="text"
           value={this.state.title}
           onChange={this.titleChanged}
+          id="todoTitle"
+          required
         />
         <label htmlFor="input" className="block mb-2">
           Duedate
@@ -71,6 +73,8 @@ class TaskForm extends React.Component<TaskFormProps, TaskFormState> {
           type="text"
           value={this.state.duedate}
           onChange={this.duedateChanged}
+          id="todoDueDate"
+          required
         />
         <label htmlFor="input" className="block mb-2">
           description
@@ -81,8 +85,10 @@ class TaskForm extends React.Component<TaskFormProps, TaskFormState> {
           type="text"
           value={this.state.description}
           onChange={this.descriptionChanged}
+          id="todoDescription"
+          required
         />
-        <button className="rounded bg-blue-700 p-4" type="submit">
+        <button className="rounded bg-blue-700 p-4" type="submit" id="addTaskButton" >
           Add item
         </button>
       </form>
