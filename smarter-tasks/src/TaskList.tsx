@@ -1,8 +1,8 @@
 import Task from "./Task"; 
- import { taskItem } from "./types"; 
+ import { TaskItem } from "./types"; 
   
  interface Props { 
-   tasks: taskItem[]; 
+   tasks: TaskItem[]; 
    deleteTaskItem: (id:number) => void 
  } 
   

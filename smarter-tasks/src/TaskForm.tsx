@@ -2,12 +2,12 @@ import React from 'react';
 import { TaskItem } from "./types";
 interface TaskFormState { 
    title: string;
-  duedate: Date;
+  duedate: string;
   description: string;  
  } 
   
  interface TaskFormProps { 
-   addTask: (task: taskItem) => void; 
+   addTask: (task: TaskItem) => void; 
  } 
   
  const TaskForm = (props : TaskFormProps) => { 

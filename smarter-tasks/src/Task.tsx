@@ -1,9 +1,10 @@
-import React from 'react'; // Import React without unused imports
+//import React from 'react';
+// Import React without unused imports
 import "./TaskCard.css";
 
 interface TaskProps { // Corrected typo from TaskProp to TaskProps
   title: string;
-  duedate: Date;
+  duedate: string;
   description: string; 
   deleteTaskItem: () => void;
 }

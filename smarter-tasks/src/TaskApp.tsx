@@ -1,39 +1,39 @@
-import React, { useEffect } from "react"; // Import React without unused imports 
- import { TaskItem } from "./types"; 
- import TaskForm from "./TaskForm"; 
- import TaskList from "./TaskList"; 
- import { useLocalStorage } from "./hooks/useLocalStorage";
-  
- interface TaskAppProps {} // Corrected typo from TaskAppProp to TaskAppProps 
- interface TaskAppState { 
-   tasks: TaskItem[]; 
- } 
- 
- const TaskApp = () => {
-  // const [taskAppState, setTaskAppState] = React.useState<TaskAppState>({
-  //  tasks: [],
-  // });
+// import React, { useEffect } from "react";
+import { TaskItem } from "./types";
+import TaskForm from "./TaskForm";
+import TaskList from "./TaskList";
+import { useLocalStorage } from "./hooks/useLocalStorage";
+
+// interface TaskAppProps {}
+
+interface TaskAppState {
+  tasks: TaskItem[];
+}
+
+const TaskApp = () => {
   const [taskAppState, setTaskAppState] = useLocalStorage<TaskAppState>("tasks", {
-   tasks: [],
- });
-  React.useEffect(() => {
-  const id = setTimeout(() => {
-    console.log(`Saved items to backend...`);
-  }, 5000);
-  return () => {
-    console.log("clear or cancel any existing network call");
-    clearTimeout(id);
-  };
-}, [taskAppState.tasks]);
-  
+    tasks: [],
+  });
+
+  // useEffect(() => {
+  //   const id = setTimeout(() => {
+  //     console.log(`Saved items to backend...`);
+  //   }, 5000);
+  //   return () => {
+  //     console.log("clear or cancel any existing network call");
+  //     clearTimeout(id);
+  //   };
+  // }, [taskAppState.tasks]);
+
   const addTask = (task: TaskItem) => {
     setTaskAppState({ tasks: [...taskAppState.tasks, task] });
   };
-  
-  const deleteTaskItem = (id: number) => { 
-     taskAppState.tasks.splice(id, 1) 
-     setTaskAppState({ tasks: [...taskAppState.tasks] }) 
-   };
+
+  const deleteTaskItem = (id: number) => {
+    const updatedTasks = taskAppState.tasks.filter((_, index) => index !== id);
+    setTaskAppState({ tasks: updatedTasks });
+  };
+
   return (
     <div className="container py-10 max-w-4xl mx-auto">
       <h1 className="text-3xl mb-2 font-bold text-slate-700">
@@ -55,21 +55,5 @@ import React, { useEffect } from "react"; // Import React without unused imports
     </div>
   );
 };
-// class TaskApp extends React.Component<TaskAppProps, TaskAppState> { // Changed extends Component to extends React.Component 
-//   constructor(props: TaskAppProps) { 
-//     super(props); 
-//     this.state = { 
-//       tasks: [], 
-//     }; 
-//   } 
-  
-//   addTask = (task: TaskItem) => { 
-//     this.setState((state) => { 
-//       return { 
-//         tasks: [...state.tasks, task], 
-//       }; 
-//     }); 
-//   }; 
 
-  
- export default TaskApp;
+export default TaskApp;
