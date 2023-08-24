@@ -1,5 +1,7 @@
-export interface TaskItem {
-  title: string;
-  duedate: string;
-  description: string; 
-}
+export interface TaskItem { 
+   id: number; 
+   title: string; 
+   description: string; 
+   duedate: string; 
+   // onDelete?: () => void; 
+ }

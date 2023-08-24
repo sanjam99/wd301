@@ -1,6 +1,7 @@
 import React from 'react';
 import { TaskItem } from "./types";
 interface TaskFormState { 
+  id: string; 
    title: string;
   duedate: string;
   description: string;  
@@ -11,7 +12,8 @@ interface TaskFormState {
  } 
   
  const TaskForm = (props : TaskFormProps) => { 
-   const [formState, setFormState] = React.useState<TaskFormState>({ 
+   const [formState, setFormState] = React.useState<TaskFormState>({
+     id: "",
      title: "", 
      duedate: "", 
      description: "", 
@@ -37,7 +39,7 @@ interface TaskFormState {
        return; 
      } 
      props.addTask(formState); 
-     setFormState({ title: "", description: "", duedate: "" }); 
+     setFormState({ id: "", title: "", description: "", duedate: "" }); 
    }; 
    return ( 
      <form onSubmit={addTask}> 
