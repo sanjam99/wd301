@@ -1,42 +1,46 @@
-// import React, { useEffect } from "react";
+//import React from "react"; Import React
 import { TaskItem } from "./types";
 import TaskForm from "./TaskForm";
-import TaskList from "./TaskList";
 import { useLocalStorage } from "./hooks/useLocalStorage";
-
-// interface TaskAppProps {}
+import TaskList from "./TaskList";
 
 interface TaskAppState {
   tasks: TaskItem[];
 }
 
 const TaskApp = () => {
-  const [taskAppState, setTaskAppState] = useLocalStorage<TaskAppState>("tasks", {
-    tasks: [],
-  });
-
-  // useEffect(() => {
-  //   const id = setTimeout(() => {
-  //     console.log(`Saved items to backend...`);
-  //   }, 5000);
-  //   return () => {
-  //     console.log("clear or cancel any existing network call");
-  //     clearTimeout(id);
-  //   };
-  // }, [taskAppState.tasks]);
+  const [taskAppState, setTaskAppState] = useLocalStorage<TaskAppState>(
+    "tasks",
+    {
+      tasks: [],
+    }
+  );
 
   const addTask = (task: TaskItem) => {
-    setTaskAppState({ tasks: [...taskAppState.tasks, task] });
+    const nextId =
+      taskAppState.tasks.length > 0
+        ? taskAppState.tasks[taskAppState.tasks.length - 1].id! + 1
+        : 1;
+
+    const newTask: TaskItem = {
+      id: nextId,
+      title: task.title,
+      description: task.description,
+      duedate: task.duedate,
+    };
+    setTaskAppState({ tasks: [...taskAppState.tasks, newTask] });
   };
 
-  const deleteTaskItem = (id: number) => {
-    const updatedTasks = taskAppState.tasks.filter((_, index) => index !== id);
+  const removeTask = (taskToRemove: TaskItem) => {
+    const updatedTasks = taskAppState.tasks.filter(
+      (task) => task.id !== taskToRemove.id
+    );
     setTaskAppState({ tasks: updatedTasks });
   };
 
   return (
-    <div className="container py-10 max-w-4xl mx-auto">
-      <h1 className="text-3xl mb-2 font-bold text-slate-700">
+    <div className="py-10 max-w-4xl mx-auto">
+<h1 className="text-3xl mb-2 font-bold text-slate-700">
         Smarter Tasks
       </h1>
       <h1 className="text-lg mb-6 text-slate-600">
@@ -49,8 +53,11 @@ const TaskApp = () => {
             Pending
           </h1>
           <TaskForm addTask={addTask} />
-          <TaskList deleteTaskItem={deleteTaskItem} tasks={taskAppState.tasks} />
-        </div>
+      <TaskList
+        tasks={taskAppState.tasks}
+        deleteTaskItem={(id) => removeTask(taskAppState.tasks.find(task => task.id === id)!)}
+      />
+      </div>
       </div>
     </div>
   );

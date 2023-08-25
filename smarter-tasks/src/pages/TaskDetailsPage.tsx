@@ -20,7 +20,7 @@ const TaskDetailsPage: React.FC = () => {
     }
   );
   
-  const task = taskAppState.tasks.find(task => task.id === id);
+  const task = taskAppState.tasks.find(task => task.id == id);
 
   return (
     <div className="bg-white shadow-md rounded-md p-4 m-8">
@@ -28,7 +28,7 @@ const TaskDetailsPage: React.FC = () => {
         <h3 className="text-lg font-medium">{task?.title}</h3>
       </div>
       <p className="text-gray-600">{task?.description}</p>
-      <p className="text-gray-600">{task?.dueDate}</p>
+      <p className="text-gray-600">{task?.duedate}</p>
     </div>
   );
 };

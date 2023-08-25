@@ -1,46 +1,47 @@
-import React from 'react';
+import React, { useState } from "react";
 import { TaskItem } from "./types";
-interface TaskFormState { 
-  id: string; 
-   title: string;
-  duedate: string;
-  description: string;  
- } 
-  
- interface TaskFormProps { 
-   addTask: (task: TaskItem) => void; 
- } 
-  
- const TaskForm = (props : TaskFormProps) => { 
-   const [formState, setFormState] = React.useState<TaskFormState>({
-     id: "",
-     title: "", 
-     duedate: "", 
-     description: "", 
-   }); 
-   const titleChanged: React.ChangeEventHandler<HTMLInputElement> = (event) => { 
-     console.log(`${event.target.value}`); 
-     setFormState({ ...formState, title: event.target.value }); 
-   }; 
-   const descriptionChanged: React.ChangeEventHandler<HTMLInputElement> = ( 
-     event 
-   ) => { 
-     console.log(`${event.target.value}`); 
-     setFormState({ ...formState, description: event.target.value }); 
-   }; 
-   const dateChanged: React.ChangeEventHandler<HTMLInputElement> = (event) => { 
-     console.log(`${event.target.value}`); 
-     setFormState({ ...formState, duedate: event.target.value }); 
-   }; 
-   const addTask: React.FormEventHandler<HTMLFormElement> = (event) => { 
-     event.preventDefault(); 
-     console.log(`Submitted the form with`); 
-     if (formState.title.length === 0 || formState.duedate.length === 0) { 
-       return; 
-     } 
-     props.addTask(formState); 
-     setFormState({ id: "", title: "", description: "", duedate: "" }); 
-   }; 
+
+interface TaskFormProps {
+  addTask: (task: TaskItem) => void;
+}
+
+const TaskForm: React.FC<TaskFormProps> = (props: TaskFormProps) => {
+  const [formState, setFormState] = useState({
+    title: "",
+    description: "",
+    duedate: "",
+  });
+
+  const addTask: React.FormEventHandler<HTMLFormElement> = (event) => {
+    event.preventDefault();
+    const newTask = {
+      id: 1,
+      title: formState.title,
+      description: formState.description,
+      duedate: formState.duedate,
+    };
+
+    if (newTask.title.trim() !== "" && newTask.duedate.trim() !== "") {
+      props.addTask(newTask);
+      setFormState({ title: "", description: "", duedate: "" });
+    }
+  };
+
+  const titleChanged: React.ChangeEventHandler<HTMLInputElement> = (event) => {
+    setFormState({ ...formState, title: event.target.value });
+  };
+
+  const descriptionChanged: React.ChangeEventHandler<HTMLInputElement> = (
+    event
+  ) => {
+    setFormState({ ...formState, description: event.target.value });
+  };
+
+  const dueDateChanged: React.ChangeEventHandler<HTMLInputElement> = (
+    event
+  ) => {
+    setFormState({ ...formState, duedate: event.target.value });
+  };
    return ( 
      <form onSubmit={addTask}> 
        <div className="grid md:grid-cols-4 md:gap-3"> 
@@ -84,7 +85,7 @@ interface TaskFormState {
              name="todoDueDate" 
              type="date" 
              value={formState.duedate} 
-             onChange={dateChanged} 
+             onChange={dueDateChanged} 
              className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" 
              placeholder=" " 
              required 

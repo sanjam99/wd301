@@ -1,15 +1,15 @@
-//import React from 'react'; 
- // Import React without unused imports 
-import "./TaskCard.css"; 
-import { TaskItem } from "./types";  
- interface TaskProps { // Corrected typo from TaskProp to TaskProps 
-   item: TaskItem[];
-   deleteTaskItem: () => void; 
- } 
-  
- const Task = (props: TaskProps) => { 
-   const item = props; 
-   return (
+import "./TaskCard.css";
+import { TaskItem } from "./types";
+
+interface TaskProps {
+  item: TaskItem; // Change from TaskItem[]
+  removeTask: (task: TaskItem) => void;
+}
+
+const Task = (props: TaskProps) => {
+  const { item, removeTask } = props;
+  console.log(item.id);
+  return (
     <div className="TaskItem shadow-md border border-slate-100">
       <div className="sm:ml-4 sm:flex sm:w-full sm:justify-between">
         <div>
@@ -22,15 +22,15 @@ import { TaskItem } from "./types";
           </p>
         </div>
 
-        <button className="deleteTaskButton cursor-pointer flex items-center justify-center h-4 w-4 rounded-full my-5 mr-5"
-          onClick={props.deleteTaskItem}>
+        <button
+          className="deleteTaskButton cursor-pointer flex items-center justify-center h-4 w-4 rounded-full my-5 mr-5"
+          onClick={() => removeTask(item)}
+        >
           X
         </button>
       </div>
     </div>
   );
- }; 
-  
-  
-  
- export default Task;
+};
+
+export default Task;
