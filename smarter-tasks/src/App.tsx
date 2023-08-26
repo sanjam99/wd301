@@ -43,6 +43,14 @@ const router = createBrowserRouter([
          path: "notfound", 
          element: <NotfoundPage />, 
       },
+      {
+        path: "*", 
+        element: <Navigate to="/notfound" replace />, 
+      }, 
+       { 
+        path: "/tasks/*", 
+        element: <Navigate to="/notfound" replace />, 
+       },
     ],
   }
 ]);
