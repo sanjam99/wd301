@@ -30,10 +30,10 @@ const Dashboard: React.FC = () => {
               <p className="text-lg font-semibold mb-4">Name: {user.name}</p>
               <p className="text-lg font-semibold">Email: {user.email}</p>      
               <button 
-             id="backToHomeButton" 
+             id="logout-link" 
              className="px-4 inline py-2 text-sm font-medium leading-5 shadow text-white transition-colors duration-150 border border-transparent rounded-lg focus:outline-none focus:shadow-outline-blue bg-green-600 active:bg-green-600 hover:bg-green-700" 
            > 
-             <a href="#" onClick= {logout}>logout</a>
+             <a href="#" id= "logout-link" onClick= {logout}>logout</a>
              </button>
             </div>
           ) : (
