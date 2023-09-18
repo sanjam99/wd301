@@ -32,7 +32,7 @@ const SigninForm: React.FC = () => {
       localStorage.setItem('userData', JSON.stringify(data.user));
       const sanket = JSON.stringify(data.user)
       console.log("sanket =",sanket)
-      navigate('/dashboard');
+      navigate("/account")
     } catch (error) {
       console.error('Sign-in failed:', error);
     }
