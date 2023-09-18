@@ -37,7 +37,15 @@ const Dashboard: React.FC = () => {
              </button>
             </div>
           ) : (
+            <div>
             <p className="text-lg text-center text-gray-600">No user data available.</p>
+            <button 
+             id="logout-link" 
+             className="px-4 inline py-2 text-sm font-medium leading-5 shadow text-white transition-colors duration-150 border border-transparent rounded-lg focus:outline-none focus:shadow-outline-blue bg-green-600 active:bg-green-600 hover:bg-green-700" 
+           > 
+             <a href="#" id= "logout-link" onClick= {logout}>logout</a>
+             </button>
+             </div>
           )}
         </div>
       </div>
