@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { fetchMembers } from "../../context/members/action";
+import { fetchMembers } from "../../context/members/actions";
 
 // So, let's import the useMembersDispatch custom hook.
 import { useMembersDispatch } from "../../context/members/context";
