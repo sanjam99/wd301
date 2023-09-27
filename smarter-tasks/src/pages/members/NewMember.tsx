@@ -1,10 +1,8 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Dialog, Transition } from '@headlessui/react'
-import { API_ENDPOINT } from '../../config/constants';
-// Next we will import Fragment and useState component from 'react'
-
 import { Fragment, useState } from 'react'
-
+import { addMember } from '../../context/members/action';
+import { useMembersDispatch } from "../../context/members/context";
 type Inputs = {
     name: string,
     email: string,
@@ -13,62 +11,27 @@ type Inputs = {
 
 const NewMember = () => {
     
-const [name, setName] = useState('');
-const [email, setemail] = useState('');
-const [password, setpassword] = useState('');
+const [isOpen, setIsOpen] = useState(false)
+  const [error, setError] = useState(null)
+  const dispatchMembers = useMembersDispatch();
 const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
 
 
-const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    // Let's remove event.PreventDefault()
-    const { name,email,password } = data
-    const token = localStorage.getItem("authToken") ?? "";
-    try {
-      const response = await fetch(`${API_ENDPOINT}/users`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', "Authorization": `Bearer ${token}` },
-        body: JSON.stringify({ name,email,password }),
-      });
-      // If response is not OK, in that case I'll throw an error.
-
-      if (!response.ok) {
-        throw new Error('Failed to create project');
-      }
-      // Next, I'll extract the response body as JSON data
-
-      const data = await response.json();
-
-      // Let's print the data in console
-
-      console.log(data)
-      setIsOpen(false)
-    } catch (error) {
-      // And in catch block, I'll print the error in console.
-
-      console.error('Operation failed:', error);
-    }
-  };
-// Then we will use useState hook to handle local state for dialog component
-
-  let [isOpen, setIsOpen] = useState(false)
-
-// Then we add the openModal function. 
-// If you don't know, Modal and Dialog are almost same thing.
-
+const closeModal = () => {
+    setIsOpen(false)
+  }
   const openModal = () => {
     setIsOpen(true)
   }
-
-  
-
-// Then we add the closeModal function
-  const closeModal = () => {
-    setIsOpen(false)
-  }
-
-// In the return statement, we will use the code for modal 
-// that we've obtained from https://headlessui.com/react/dialog
-
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    const { name } = data
+    const response = await addMember(dispatchMembers, { name })
+    if (response.ok) {
+      setIsOpen(false)
+    } else {
+      setError(response.error as React.SetStateAction<null>)
+    }
+  };
   return (
     <>
       <button
