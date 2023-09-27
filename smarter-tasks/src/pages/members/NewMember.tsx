@@ -16,7 +16,7 @@ const [isOpen, setIsOpen] = useState(false)
   const dispatchMembers = useMembersDispatch();
 const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
 
-
+console.log(error)
 const closeModal = () => {
     setIsOpen(false)
   }
@@ -24,8 +24,8 @@ const closeModal = () => {
     setIsOpen(true)
   }
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    const { name } = data
-    const response = await addMember(dispatchMembers, { name })
+    const { name, email, password } = data;
+    const response = await addMember(dispatchMembers, { name, email, password })
     if (response.ok) {
       setIsOpen(false)
     } else {
