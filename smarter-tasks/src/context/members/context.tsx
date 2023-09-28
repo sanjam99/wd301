@@ -1,8 +1,6 @@
 import React, { createContext, useContext, useReducer } from "react"; 
  import { reducer, initialState, MembersState, MembersActions } from "./reducer"; 
  const MembersStateContext = createContext<MembersState | undefined>(undefined); 
- export const useMembersState = () => useContext(MembersStateContext); 
- export const useMembersDispatch = () => useContext(MembersDispatchContext); 
   
  type MembersDispatch = React.Dispatch<MembersActions>; 
   
@@ -20,3 +18,6 @@ import React, { createContext, useContext, useReducer } from "react";
        </MembersStateContext.Provider> 
      ); 
    };
+   
+export const useMembersState = () => useContext(MembersStateContext); 
+ export const useMembersDispatch = () => useContext(MembersDispatchContext); 

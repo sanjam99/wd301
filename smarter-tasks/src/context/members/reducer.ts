@@ -60,8 +60,6 @@ export const reducer = (state: MembersState = initialState, action: MembersActio
         errorMessage: action.payload
       };           
       case 'ADD_MEMBER_SUCCESS':
-      // Here I'll insert new new project object, which is coming in this 
-      // `action.payload`, to the `projects` array present in state.
       return { ...state, members: [...state.members, action.payload] };  
           case "DELETE_MEMBER_SUCCESS": 
        return { 
