@@ -1,4 +1,3 @@
-import React from "react";
 import { useMembersState, useMembersDispatch } from "../../context/members/context";
 import { deletemember } from "../../context/members/actions";
 
