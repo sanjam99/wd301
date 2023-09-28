@@ -54,3 +54,27 @@ export const fetchMembers = async (dispatch: any) => {
     dispatch({ type: "FETCH_MEMBERS_FAILURE", payload: 'Unable to load members' });
   }
 };
+export const deletemember = async (dispatch: any, id: number) => { 
+   const token = localStorage.getItem("authToken") ?? ""; 
+  
+   try { 
+     dispatch({ type: "DELETE_MEMBER" }); 
+     const response = await fetch(`${API_ENDPOINT}/users/${id}`, { 
+       method: "DELETE", 
+       headers: { 
+         "Content-Type": "application/json", 
+         Authorization: `Bearer ${token}`, 
+       }, 
+     }); 
+  
+     if (!response.ok) { 
+       throw new Error("Failed to delete user"); 
+     } 
+  
+     dispatch({ type: "DELETE_MEMBER_SUCCESS", payload: id }); 
+     return { ok: true }; 
+   } catch (error) { 
+     console.error("Operation failed:", error); 
+     return { ok: false, error }; 
+   } 
+ };

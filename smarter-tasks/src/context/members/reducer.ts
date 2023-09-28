@@ -27,7 +27,7 @@ export type MembersActions =
   | { type: 'FETCH_MEMBERS_SUCCESS'; payload: Member[] }
   | { type: 'FETCH_MEMBERS_FAILURE'; payload: string }
   | { type: 'ADD_MEMBER_SUCCESS'; payload: Member }
-
+  | { type: "DELETE_MEMBER_SUCCESS"; payload: number };
 
 export const initialState: MembersState = {
   members: [],
@@ -63,6 +63,12 @@ export const reducer = (state: MembersState = initialState, action: MembersActio
       // Here I'll insert new new project object, which is coming in this 
       // `action.payload`, to the `projects` array present in state.
       return { ...state, members: [...state.members, action.payload] };  
+          case "DELETE_MEMBER_SUCCESS": 
+       return { 
+  ...state, 
+  members: state.members.filter((user) => user.id !== action.payload), 
+};
+
     default:
       return state;
   }
