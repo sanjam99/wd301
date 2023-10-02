@@ -1,7 +1,10 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
-
+import { Outlet } from "react-router-dom";
 import AccountLayout from "../layouts/account"
+import ProjectDetails from "../pages/project_details";
+import ProjectContainer from "../pages/projects/ProjectContainer";
 import ProtectedRoute from "./ProtectedRoute"
+import NewTask from "../pages/tasks/NewTask";
 import Signin from "../pages/signin"
 import Signup from "../pages/signup"
 import Projects from "../pages/projects"
@@ -36,10 +39,37 @@ const router = createBrowserRouter([
     ),
     children: [
       { index: true, element: <Navigate to="/account/projects" replace /> },
-      {
-        path: "projects",
-        element: (<Projects />)
-      },
+{
+  path: "projects",
+  element: <ProjectContainer />,
+  children: [
+    { index: true, element: <Projects /> },
+    {
+      path: ":projectID",
+      element: <ProjectDetails />,
+      children: [
+        { index: true, element: <></> 
+        },
+        {
+          path: "tasks",
+          children: [
+            { index: true, element: <Navigate to="../" /> },
+            {
+              path: "new",
+              // Render `NewTask` component
+              element: <NewTask />,
+            },
+            {
+              path: ":taskID",
+              children: [{ index: true, element: <>Show Task Details</> 
+              }],
+            },
+          ],
+        },
+      ],
+    },
+  ],
+},
       {
         path: "members",
         element: (<Members />)
