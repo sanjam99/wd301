@@ -40,6 +40,7 @@ const NewTask = () => {
       closeModal();
     } catch (error) {
       console.error("Operation failed:", error);
+      console.log(errors)
     }
   };
   return (

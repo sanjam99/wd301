@@ -1,7 +1,7 @@
 import React, { forwardRef } from "react";
 import Task from "./Task";
 import { ColumnData, TaskDetails } from "../../context/task/types";
-import { Draggable, Droppable } from "react-beautiful-dnd";
+import { Droppable } from "react-beautiful-dnd";
 
 const Container = (props: React.PropsWithChildren) => {
   // We will use flex to display lists as columns
