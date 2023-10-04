@@ -1,35 +1,43 @@
-import React, { forwardRef } from "react";
+
 import { Draggable } from "react-beautiful-dnd";
 import { TaskDetails } from "../../context/task/types";
 import "./TaskCard.css";
 import { Link } from "react-router-dom";
+import React, { forwardRef, useContext } from "react";
+import { useParams } from "react-router-dom";
+import { useTasksDispatch } from "../../context/task/context";
+import { deleteTask } from "../../context/task/actions";
 
 const Task = forwardRef<
   HTMLDivElement,
   React.PropsWithChildren<{ task: TaskDetails }>
 >((props, ref) => {
+  const taskDispatch = useTasksDispatch();
+  const { projectID } = useParams();
   const { task } = props;
-  // Attach the `ref` and spread the `props`
   return (
     <div ref={ref} {...props} className="m-2 flex">
-    <div className="m-2 flex">
       <Link
         className="TaskItem w-full shadow-md border border-slate-100 bg-white"
         to={`tasks/${task.id}`}
       >
         <div className="sm:ml-4 sm:flex sm:w-full sm:justify-between">
-          <div>
-            <h2 className="text-base font-bold my-1">{task.title}</h2>
-            <p className="text-sm text-slate-500">
-              {new Date(task.dueDate).toDateString()}
-            </p>
-            <p className="text-sm text-slate-500">
-              Description: {task.description}
-            </p>
-          </div>
+        <div>
+  <h2 className="text-base font-bold my-1">{task.title}</h2>
+  <p className="text-sm text-slate-500">
+    {new Date(task.dueDate).toDateString()}
+  </p>
+  <p className="text-sm text-slate-500">Description: {task.description}</p>
+  <p className="text-sm text-slate-500">
+    Assignee: {task.assignedUserName ?? "-"}
+  </p>
+</div>
           <button
             className="deleteTaskButton cursor-pointer h-4 w-4 rounded-full my-5 mr-5"
-            onClick={(event) => {}}
+            onClick={(event) => {
+              event.preventDefault();
+              deleteTask(taskDispatch, projectID ?? "", task);
+            }}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -49,7 +57,6 @@ const Task = forwardRef<
         </div>
       </Link>
     </div>
-</div>
   );
 });
 

@@ -1,5 +1,6 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import { Outlet } from "react-router-dom";
+import TaskDetailsContainer from "../pages/tasks/TaskDetailsContainer";
 import AccountLayout from "../layouts/account"
 import ProjectDetails from "../pages/project_details";
 import ProjectContainer from "../pages/projects/ProjectContainer";
@@ -39,37 +40,36 @@ const router = createBrowserRouter([
     ),
     children: [
       { index: true, element: <Navigate to="/account/projects" replace /> },
-{
-  path: "projects",
-  element: <ProjectContainer />,
-  children: [
-    { index: true, element: <Projects /> },
-    {
-      path: ":projectID",
-      element: <ProjectDetails />,
-      children: [
-        { index: true, element: <></> 
-        },
-        {
-          path: "tasks",
-          children: [
-            { index: true, element: <Navigate to="../" /> },
-            {
-              path: "new",
-              // Render `NewTask` component
-              element: <NewTask />,
-            },
-            {
-              path: ":taskID",
-              children: [{ index: true, element: <>Show Task Details</> 
-              }],
-            },
-          ],
-        },
-      ],
-    },
-  ],
-},
+      {
+        path: "projects",
+        element: <ProjectContainer />,
+        children: [
+          { index: true, element: <Projects /> },
+          {
+            path: ":projectID",
+            element: <ProjectDetails />,
+            children: [
+              { index: true, element: <></> },
+              {
+                path: "tasks",
+                children: [
+                  { index: true, element: <Navigate to="../" /> },
+                  {
+                    path: "new",
+                    element: <NewTask />,
+                  },
+                  {
+                    path: ":taskID",
+                    children: [
+                      { index: true, element: <TaskDetailsContainer /> },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
       {
         path: "members",
         element: (<Members />)
