@@ -233,9 +233,9 @@ import { Fragment, useState, useEffect } from "react";
                                          <div className="mt-2"> 
                                              <h3><strong>Comments</strong></h3> 
                                              <div className="mt-2"> 
-                                                 {commentData 
-                                                     ?.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()) 
-                                                     .map((comment) => ( 
+                                                 {commentData
+  ?.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime())
+  .map((comment) => ( 
                                                          <div key={comment.id} className="comment"> 
                                                              <span>Name: {comment.User.name}</span> 
                                                              <br /> 
