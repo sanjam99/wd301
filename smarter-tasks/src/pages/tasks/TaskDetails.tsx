@@ -13,8 +13,8 @@ import { Fragment, useState, useEffect } from "react";
  import CheckIcon from "@heroicons/react/24/outline/CheckIcon"; 
  import { useMembersState } from "../../context/members/context"; 
  import { refreshComments } from "../../context/comment/actions"; 
- // i have to use moment because ISOstring is not working at all !!! i am done
- import moment from 'moment'; 
+ // i have to use iso-rfs because ISOstring is not working at all !!! i am done
+ import { format, parseISO } from 'date-fns'; 
   
   
   
@@ -241,7 +241,7 @@ import { Fragment, useState, useEffect } from "react";
                                                              <br /> 
                                                              <span>Comment: {comment.description}</span> 
                                                              <br /> 
-                                                             <span>{moment(comment.updatedAt).format('MMMM D, YYYY h:mm A')}</span> 
+                                                             <span>{format(parseISO(comment.updatedAt), 'MMMM d, yyyy h:mm a')}</span> 
                                                              <br /><br /> 
                                                          </div> 
                                                      ))} 
@@ -259,7 +259,9 @@ import { Fragment, useState, useEffect } from "react";
                                                          <input 
                                                              type="hidden" 
   
-                                                             value={moment().format('YYYY-MM-DDTHH:mm:ssZ')} 
+                                                             value={format(new Date(), 'MMMM d, yyyy h:mm a')}
+
+
                                                              id="updatedAt" 
                                                              {...commentFormRegister("updatedAt", { required: true })} 
   
