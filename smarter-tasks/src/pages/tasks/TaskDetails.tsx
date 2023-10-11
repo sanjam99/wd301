@@ -105,7 +105,7 @@ import { Fragment, useState, useEffect } from "react";
      }; 
   
   
-     const onSubmit2: SubmitHandler<CommentDetailsPayload> = async (data) => { 
+     const onSubmitcomment : SubmitHandler<CommentDetailsPayload> = async (data) => { 
          addComment(commentDispatch, projectID ?? "", taskID ?? "", { 
   
              ...data 
@@ -246,7 +246,7 @@ import { Fragment, useState, useEffect } from "react";
                                                          </div> 
                                                      ))} 
                                                  <div className="addCommentSection" id="commentBox"> 
-                                                     <form onSubmit={commentFormSubmit(onSubmit2)}> 
+                                                     <form onSubmit={commentFormSubmit(onSubmitcomment )}> 
                                                          <input 
                                                              type="text" 
                                                              required 
