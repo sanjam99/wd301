@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from "react"; 
+import { Fragment, useState, useEffect } from "react"; 
  import { useParams, useNavigate } from "react-router-dom"; 
  import { useForm, SubmitHandler } from "react-hook-form"; 
  import { useTasksDispatch, useTasksState } from "../../context/task/context"; 
@@ -12,27 +12,24 @@ import React, { Fragment, useState, useEffect } from "react";
  import { Dialog, Transition, Listbox } from "@headlessui/react"; 
  import CheckIcon from "@heroicons/react/24/outline/CheckIcon"; 
  import { useMembersState } from "../../context/members/context"; 
- import { refreshComments } from "../../context/comment/actions";
+ import { refreshComments } from "../../context/comment/actions"; 
+ // i have to use moment because ISOstring is not working at all !!! i am done
+ import moment from 'moment'; 
+  
+  
   
  type TaskFormUpdatePayload = TaskDetailsPayload & { 
-   selectedPerson: string; 
+     selectedPerson: string; 
  }; 
-  
- // Helper function to format the date to YYYY-MM-DD format 
  const formatDateForPicker = (isoDate: string) => { 
-   const dateObj = new Date(isoDate); 
-   const year = dateObj.getFullYear(); 
-   const month = String(dateObj.getMonth() + 1).padStart(2, "0"); 
-   const day = String(dateObj.getDate()).padStart(2, "0"); 
-  
-   // Format the date as per the required format for the date picker (YYYY-MM-DD) 
-   return `${year}-${month}-${day}`; 
+     const dateObj = new Date(isoDate); 
+     const year = dateObj.getFullYear(); 
+     const month = String(dateObj.getMonth() + 1).padStart(2, "0"); 
+     const day = String(dateObj.getDate()).padStart(2, "0"); 
+     return `${year}-${month}-${day}`; 
  }; 
- const formatCommentDate = (isoDate: string) => {
-    const dateObj = new Date(isoDate);
-    const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', hour12: true };
-    return dateObj.toLocaleDateString(undefined, options);
-};
+  
+  
   
  const TaskDetails = () => { 
   
@@ -65,13 +62,9 @@ import React, { Fragment, useState, useEffect } from "react";
      const [selectedPerson, setSelectedPerson] = useState( 
          selectedTask.assignedUserName ?? "" 
      ); 
-  
-  
-     // Use react-form-hook to manage the form. Initialize with data from selectedTask. 
      const { 
          register: taskFormRegister, 
          handleSubmit: taskFormSubmit, 
-         formState: { errors: taskFormErrors }, 
      } = useForm<TaskFormUpdatePayload>({ 
          defaultValues: { 
              title: selectedTask.title, 
@@ -86,7 +79,7 @@ import React, { Fragment, useState, useEffect } from "react";
      const { 
          register: commentFormRegister, 
          handleSubmit: commentFormSubmit, 
-         formState: { errors: commentFormErrors }, 
+         
      } = useForm<CommentDetailsPayload>(); 
   
      if (!selectedProject) { 
@@ -112,14 +105,16 @@ import React, { Fragment, useState, useEffect } from "react";
      }; 
   
   
-     const onSubmitcomm: SubmitHandler<CommentDetailsPayload> = async (data) => { 
+     const onSubmit2: SubmitHandler<CommentDetailsPayload> = async (data) => { 
          addComment(commentDispatch, projectID ?? "", taskID ?? "", { 
   
              ...data 
          }); 
   
      }; 
-       return ( 
+  
+  
+     return ( 
          <> 
              <Transition appear show={isOpen} as={Fragment}> 
                  <Dialog as="div" className="relative z-10" onClose={closeModal}> 
@@ -246,12 +241,12 @@ import React, { Fragment, useState, useEffect } from "react";
                                                              <br /> 
                                                              <span>Comment: {comment.description}</span> 
                                                              <br /> 
-                                                             <span>{formatCommentDate(comment.updatedAt)}</span> 
+                                                             <span>{moment(comment.updatedAt).format('MMMM D, YYYY h:mm A')}</span> 
                                                              <br /><br /> 
                                                          </div> 
                                                      ))} 
                                                  <div className="addCommentSection" id="commentBox"> 
-                                                     <form onSubmit={commentFormSubmit(onSubmitcomm)}> 
+                                                     <form onSubmit={commentFormSubmit(onSubmit2)}> 
                                                          <input 
                                                              type="text" 
                                                              required 
@@ -264,7 +259,7 @@ import React, { Fragment, useState, useEffect } from "react";
                                                          <input 
                                                              type="hidden" 
   
-                                                             value={formatCommentDate()} 
+                                                             value={moment().format('YYYY-MM-DDTHH:mm:ssZ')} 
                                                              id="updatedAt" 
                                                              {...commentFormRegister("updatedAt", { required: true })} 
   
@@ -291,7 +286,7 @@ import React, { Fragment, useState, useEffect } from "react";
              </Transition> 
   
          </> 
-     );
+     ); 
  }; 
   
  export default TaskDetails;
