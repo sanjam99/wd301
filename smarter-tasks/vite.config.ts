@@ -29,12 +29,12 @@ export default defineConfig({
               "sizes": "32x32"
             },
             {
-              "src": "/pwa-192x192.png",
+              "src": "/pwa-192-192.png",
               "type": "image/png",
               "sizes": "192x192"
             },
             {
-              "src": "/pwa-512x512.png",
+              "src": "/pwa-512-512.png",
               "type": "image/png",
               "sizes": "512x512",
               "purpose": "any maskable" // Icon format that ensures that your PWA icon looks great on all Android devices
