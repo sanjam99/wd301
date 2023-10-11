@@ -247,11 +247,11 @@ import { Fragment, useState, useEffect } from "react";
                                                      ))} 
                                                  <div className="addCommentSection" id="commentBox"> 
                                                      <form onSubmit={commentFormSubmit(onSubmitcomment )}> 
-                                                         <input 
+                                                         <input
                                                              type="text" 
                                                              required 
                                                              placeholder="Enter Comment" 
-                                                             id="description" 
+                                                             id="commentBox" 
                                                              {...commentFormRegister("description", { required: true })} 
                                                              className="w-full border rounded-md py-2 px-3 my-4 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 focus:shadow-outline-blue" 
                                                          /> 
