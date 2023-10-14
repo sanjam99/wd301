@@ -3,9 +3,13 @@ import { defineConfig } from "vite";
  import { VitePWA } from "vite-plugin-pwa";
 
 export default defineConfig({
+      build: { 
+       outDir: "dev-dist", 
+     },
   plugins: [
     react(),
     VitePWA({
+      registerType: "autoUpdate",
       devOptions: {
         enabled: true // For making sure that the PWA is testable from the Local dev environment
       },
