@@ -1,26 +1,25 @@
-import NewMember from "./NewMember"; 
-import React, { useEffect, Suspense } from "react";
-import { fetchMembers } from "../../context/members/actions";
-import { useMembersDispatch } from "../../context/members/context";
-const MemberListItems = React.lazy(() => import("./MemberList"));
+import React, { Suspense } from "react";
+const ProjectList = React.lazy(() => import("./ProjectList"));
+import NewProject from "./NewProject";
 import ErrorBoundary from "../../components/ErrorBoundary";
 
-const MemberList: React.FC = () => {
-  const dispatchMembers = useMembersDispatch();
-
-  useEffect(() => {
-    fetchMembers(dispatchMembers);
-  }, []);
+const Projects = () => {
   return (
-    <div className="flex justify-between"> 
-         <h2 className="text-2xl font-medium tracking-tight">Members</h2> 
-         <NewMember /> 
+    <>
+      <div className="flex justify-between">
+        <h2 className="text-2xl font-medium tracking-tight text-slate-700">
+          Projects
+        </h2>
+        <NewProject />
+      </div>
       <ErrorBoundary>
         <Suspense fallback={<div className="suspense-loading">Loading...</div>}>
-          <MemberListItems />
+          <ProjectList />
         </Suspense>
       </ErrorBoundary>
-    </div>
+    </>
   );
 };
-export default MemberList;
+
+
+export default Projects;
