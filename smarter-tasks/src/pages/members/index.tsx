@@ -1,25 +1,20 @@
 import React, { Suspense } from "react";
-const ProjectList = React.lazy(() => import("./ProjectList"));
-import NewProject from "./NewProject";
+const MemberList = React.lazy(() => import("./MemberList"));
+import NewMember from "./NewMember";
 import ErrorBoundary from "../../components/ErrorBoundary";
-
-const Projects = () => {
+const Members = () => {
   return (
     <>
       <div className="flex justify-between">
-        <h2 className="text-2xl font-medium tracking-tight text-slate-700">
-          Projects
-        </h2>
-        <NewProject />
+        <h2 className="text-2xl font-medium tracking-tight">Members</h2>
+        <NewMember />
       </div>
       <ErrorBoundary>
         <Suspense fallback={<div className="suspense-loading">Loading...</div>}>
-          <ProjectList />
+          <MemberList />
         </Suspense>
       </ErrorBoundary>
     </>
   );
 };
-
-
-export default Projects;
+  export default Members;
