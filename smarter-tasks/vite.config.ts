@@ -18,7 +18,7 @@ export default defineConfig({
         short_name: "Smarter Tasks",
         icons: [
           {
-            "src": "/logo 512.ico",
+            "src": "/san.ico",
             "sizes": "64x64 32x32 24x24 16x16",
             "type": "image/x-icon"
           },
